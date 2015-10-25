@@ -1,0 +1,9 @@
+package com.example;
+
+import java.util.ArrayList;
+
+public class Question {
+	int number;
+	String question;
+	ArrayList<Answer> answers;
+}

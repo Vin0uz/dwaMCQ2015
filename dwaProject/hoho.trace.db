@@ -1,0 +1,12 @@
+2015-10-23 18:37:17 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "QUESTION" not found; SQL statement:
+select question0_.id as id1_1_, question0_.number as number2_1_, question0_.question as question3_1_ from question question0_ [42102-190]
+2015-10-23 18:40:12 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "QUESTION" not found; SQL statement:
+select question0_.id as id1_1_, question0_.number as number2_1_, question0_.question as question3_1_ from question question0_ [42102-190]
+2015-10-23 18:56:57 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "QUESTION" not found; SQL statement:
+select question0_.id as id1_1_, question0_.number as number2_1_, question0_.question as question3_1_ from question question0_ [42102-190]
+2015-10-23 19:07:05 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "QUESTION" not found; SQL statement:
+select question0_.id as id1_1_, question0_.question as question2_1_ from question question0_ [42102-190]

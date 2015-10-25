@@ -1,0 +1,8 @@
+package com.example;
+
+import java.util.ArrayList;
+
+public class Teacher {
+	int id;
+	ArrayList<Course> courses;
+}

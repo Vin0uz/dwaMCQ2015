@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="utf-8" />
+<title>Hello Spring</title>
+<script type="text/javascript">
+	function AddChamp2() {
+		document.getElementById("nextdiv0").innerHTML =	'<input type="text" th:object="${a0}" id="a0.answer" name="a0.answer" th:value="*{answer}" required="required" />' 
+		// + '<br /> <label>Cochez si cette reponse est valide :</label> ' +
+		// '<input type="checkbox" th:object="${a0}" th:field="*{value}" />' ;
+		document.getElementById("nextdiv1").innerHTML = '<input type="text" th:object="${a1}"  id="a1.answer" name="a1.answer" th:value="*{answer}" required="required" />' 
+		//+ '<br /> <label>Cochez si cette reponse est valide :</label> ' +
+		// '<input type="checkbox" th:object="${a1}" th:field="*{value}" />' ;
+		document.getElementById("nextdiv2").innerHTML = '';
+		document.getElementById("nextdiv3").innerHTML = '';
+	}
+	function AddChamp3() {
+		AddChamp2();
+		document.getElementById("nextdiv2").innerHTML = '<input type="text" th:object="${a2}" th:field="*{answer}" required="required" />' +
+		'<br /> <label>Cochez si cette reponse est valide :</label> ' +
+		'<input type="checkbox" th:object="${a2}" th:field="*{value}" />' ;
+	}
+	function AddChamp4() {
+		AddChamp3();
+		document.getElementById("nextdiv3").innerHTML = '<input type="text" th:object="${a3}" th:field="*{answer}" required="required" />' +
+		'<br /> <label>Cochez si cette reponse est valide :</label> ' +
+		'<input type="checkbox" th:object="${a3}" th:field="*{value}" />' ;
+	}
+</script>
+</head>
+
+
+
+<body>
+	<div th:each="questions : ${form}">
+		<p th:text="${questions.stringQuestion} + ${questions.answers}" />
+		<div >
+			<p th:each="ans : ${questions.answers}" th:text="${ans.answer}" />
+		</div>
+	</div>
+
+
+	<form method="post" th:action="@{/addquestion}">
+		Ajouter une Question a votre formulaire : 
+		<input type="text"	th:object="${q}" th:field="*{stringQuestion}" required="required" />
+			<br/>
+		<input type="button" onclick="AddChamp2();"	value="2 Answers" />
+		<input type="button" onclick="AddChamp3();"	value="3 Answers" />
+		<input type="button" onclick="AddChamp4();"	value="4 Answers" />
+			<div id="nextdiv0"></div>
+		<div id="nextdiv1"></div>
+		<div id="nextdiv2"></div>
+		<div id="nextdiv3"></div>
+		<br /> <input type="submit" value="Add Question" />
+	
+	</form>
+
+</body>
+</html>

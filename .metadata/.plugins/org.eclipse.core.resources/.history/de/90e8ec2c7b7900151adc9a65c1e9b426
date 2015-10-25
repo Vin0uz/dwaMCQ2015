@@ -1,0 +1,47 @@
+package com.example;
+
+import java.util.ArrayList;
+
+import org.springframework.stereotype.Component;
+
+@Component 
+
+public class Form {
+	private int Id;
+	ArrayList<Question> form;
+	
+	
+	Form(){
+		ArrayList<Question> ArrayQuestion= new ArrayList<Question>(); 
+		Question v1= new Question();
+		v1.setQuestion("Pile ou Face ?");
+		ArrayList<Answer> ArrayAnswer = new ArrayList<Answer>();
+		Answer a1= new Answer();
+		Answer a2= new Answer();
+		a1.setAnswer("True");
+		a1.setValue(true);
+		a2.setAnswer("FALSE");
+		a2.setValue(false);
+		/*v1.answers.add(a1);
+		v1.answers.add(a2);*/
+		v1.setNumber(1);
+		ArrayQuestion.add(v1);
+	}
+	
+	
+	public Object findAll() {
+		return this.getForm() ;
+	}
+	public int getId() {
+		return Id;
+	}
+	public void setId(int id) {
+		Id = id;
+	}
+	public ArrayList<Question> getForm() {
+		return form;
+	}
+	public void setForm(ArrayList<Question> form) {
+		this.form = form;
+	}
+}

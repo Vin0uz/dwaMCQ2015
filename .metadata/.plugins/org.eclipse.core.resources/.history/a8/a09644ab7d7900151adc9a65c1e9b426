@@ -1,0 +1,23 @@
+package com.example;
+
+public class Answer {
+	String answer;
+	Boolean value;
+	
+	Answer(){
+		answer="heyy";
+		value=false;
+	}
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+	public Boolean getValue() {
+		return value;
+	}
+	public void setValue(Boolean value) {
+		this.value = value;
+	}
+}

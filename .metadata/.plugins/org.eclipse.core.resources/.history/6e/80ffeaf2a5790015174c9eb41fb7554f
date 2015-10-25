@@ -1,0 +1,36 @@
+package com.example;
+
+import java.util.ArrayList;
+
+import org.springframework.stereotype.Component;
+
+@Component 
+
+public class TempFormRep implements QuestionRep {
+	ArrayList<Question> ArrayQuest;
+
+	TempFormRep(){
+		ArrayQuest= new ArrayList<Question>(); 
+		Question v1= new Question();
+		v1.setQuestion("De quelle couleur est mon slip?");
+		add(v1);
+	}
+	public ArrayList<Vegetable> getArrayVeg() {
+		return ArrayVeg;
+	}
+
+	public void setArrayVeg(ArrayList<Vegetable> arrayVeg) {
+		ArrayVeg = arrayVeg;
+	}
+
+	
+	public ArrayList<Vegetable> findAll() {
+		return this.getArrayVeg() ;
+	}
+
+	
+	public void add(Vegetable veg) {
+		this.ArrayVeg.add(veg);
+	}
+	
+}

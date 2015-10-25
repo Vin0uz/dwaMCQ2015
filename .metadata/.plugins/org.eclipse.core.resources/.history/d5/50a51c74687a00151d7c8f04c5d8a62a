@@ -1,0 +1,13 @@
+function fAppearInputs(int i) {
+	id = 0;
+	while(id < i){
+		document.getElementById('Cible' + id).innerHTML =
+			'<input type="text"/>';
+		id ++;
+		}
+	}
+
+function aleert(){
+	
+	alert("OUMAGADE");
+}

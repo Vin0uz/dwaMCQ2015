@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Hello Spring</title>
+</head>
+<body>
+	<div th:each="f : ${form}">
+
+		<p th:text="${f.question}" />
+		<p th:each="a : ${f.answers} " th:text="${a.answer}"></p>
+	</div>
+
+	<table border="1">
+		<tr>
+			<th>NAME</th>
+			<th>PRICE</th>
+			<th>IN STOCK</th>
+			<th>COMMENTS</th>
+		</tr>
+		<tr th:each="f : ${form}">
+			<td th:text="${f.question}"></td>
+			<td th:each="a : ${f.answers} " th:text="${a.answer}"></td>
+		</tr>
+	</table>
+</body>
+</html>

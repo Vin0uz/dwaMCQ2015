@@ -1,0 +1,7 @@
+package com.example;
+
+public class Question {
+	int number;
+	String question;
+	ArrayList<Answer> answers,
+}

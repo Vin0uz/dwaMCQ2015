@@ -1,0 +1,25 @@
+package com.example;
+
+import javax.inject.Inject;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//@ComponentScan("com.example")
+@Controller
+public class MyController {
+	
+	@Inject
+	Form form;
+	
+	@RequestMapping(value="/") 
+	String ControllerIndex(Model m)
+	{
+		m.addAttribute("form", form.findAll());
+		m.addAttribute("answers", form.form.get(0));
+		return ("index");
+	}
+}
+	

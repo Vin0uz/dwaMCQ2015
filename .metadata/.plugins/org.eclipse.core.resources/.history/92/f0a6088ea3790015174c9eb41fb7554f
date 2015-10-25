@@ -1,0 +1,47 @@
+package com.example;
+
+import java.util.ArrayList;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import org.springframework.stereotype.Component;
+
+@Component 
+@Entity
+
+public class Question {
+	int number;
+	String question;
+	ArrayList<Answer> answers;
+	@Id @GeneratedValue
+	Long id;
+	
+	Question(){
+		question="";
+		answers = new ArrayList<Answer>();
+	}
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	public String getQuestion() {
+		return question;
+	}
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	public ArrayList<Answer> getAnswers() {
+		return answers;
+	}
+	public void setAnswers(ArrayList<Answer> answers) {
+		this.answers = answers;
+	}
+	public Object findAllAnswers() {
+		return this.getAnswers();
+	}
+	
+}

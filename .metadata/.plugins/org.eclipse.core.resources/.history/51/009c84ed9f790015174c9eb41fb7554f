@@ -1,0 +1,32 @@
+package com.example;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+public class MyController {
+	
+	@Inject
+	Form form;
+	
+	@RequestMapping(value="/") 
+	String ControllerIndex(Model m)
+	{
+		m.addAttribute("form", form.findAll()); // ArrayList<Question> 
+		m.addAttribute("answers", form.form.get(0).findAllAnswers()); // ArrayList<Answer> de la premiere question
+		m.addAttribute("newForm", new Form());
+		return ("index");
+	}
+
+
+@RequestMapping(value="/addForm",method=RequestMethod.POST)
+String addForm(Form newForm){
+	form.save(newForm);
+	return ("redirect:/");
+}
+}
+	

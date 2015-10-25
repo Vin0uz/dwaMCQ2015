@@ -1,0 +1,23 @@
+package com.example;
+
+import java.util.ArrayList;
+
+public class Form {
+	private int Id;
+	ArrayList<Question> form;
+	public Object findAll() {
+		return this.getForm() ;
+	}
+	public int getId() {
+		return Id;
+	}
+	public void setId(int id) {
+		Id = id;
+	}
+	public ArrayList<Question> getForm() {
+		return form;
+	}
+	public void setForm(ArrayList<Question> form) {
+		this.form = form;
+	}
+}

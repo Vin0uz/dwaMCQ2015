@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="utf-8" />
+<title>Hello Spring</title>
+<script type="text/javascript">
+	function AddChamp() {
+		document.getElementById("nextdiv0").innerHTML = "oooooaaaahahhehehe";
+	}
+</script>
+</head>
+
+
+
+<body>
+	<div th:each="questions : ${form}">
+		<p th:text="${questions.stringQuestion}" />
+		<div th:each="ans : ${questions.answers}">
+			<p th:text="${ans.answer} + ' , ' + ${ans.value}" />
+		</div>
+	</div>
+
+
+	<form method="post" th:action="@{/addquestion}">
+		Ajouter une Question a votre formulaire : <input type="text"
+			th:object="${q}" th:field="*{stringQuestion}" required="required" />
+		<br /> <input type="text" th:object="${a}" th:field="*{answer}"
+			required="required" /> <br /> <label>Cochez si cette
+			reponse est valide :</label> <input type="checkbox" th:field="*{a.value}" />
+		<br /> <input type="submit" value="Add Question" />
+		<div id="nextdiv0"></div>
+		<input type="button" onclick="AddChamp();" value="Ajouter un champ" />
+	</form>
+
+</body>
+</html>

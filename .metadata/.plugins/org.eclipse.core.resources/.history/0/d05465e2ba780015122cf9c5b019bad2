@@ -1,0 +1,8 @@
+package com.example;
+
+public class Teacher {
+	int id;
+	String name;
+	String lastname;
+	ArrayList<Course> courses;
+}

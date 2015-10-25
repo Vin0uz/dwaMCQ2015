@@ -1,0 +1,10 @@
+package com.example;
+
+import java.util.ArrayList;
+
+public class Teacher {
+	int id;
+	String name;
+	String lastname;
+	ArrayList<Course> courses;
+}

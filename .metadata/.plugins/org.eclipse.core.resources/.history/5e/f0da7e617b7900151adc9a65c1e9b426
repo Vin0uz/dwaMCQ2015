@@ -1,0 +1,28 @@
+package com.example;
+
+import java.util.ArrayList;
+
+public class Question {
+	int number;
+	String question;
+	
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	public String getQuestion() {
+		return question;
+	}
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	/*public ArrayList<Answer> getAnswers() {
+		return answers;
+	}
+	public void setAnswers(ArrayList<Answer> answers) {
+		this.answers = answers;
+	}
+	ArrayList<Answer> answers;*/
+}

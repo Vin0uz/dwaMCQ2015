@@ -1,0 +1,40 @@
+package com.example;
+
+import java.util.ArrayList;
+
+public class Form {
+	private int Id;
+	ArrayList<Question> form;
+	
+	
+	Form(){
+		ArrayList<Question> ArrayQuestion= new ArrayList<Question>(); 
+		Question v1= new Question();
+		v1.setQuestion("Pile ou Face ?");
+		v1.setName("pees");
+		v1.setPrice(1.15);
+		Vegetable v2= new Vegetable();
+		v2.setColor("red");
+		v2.setName("strawberry");
+		v2.setPrice(2.89);
+		add(v1);
+		add(v2);
+	}
+	
+	
+	public Object findAll() {
+		return this.getForm() ;
+	}
+	public int getId() {
+		return Id;
+	}
+	public void setId(int id) {
+		Id = id;
+	}
+	public ArrayList<Question> getForm() {
+		return form;
+	}
+	public void setForm(ArrayList<Question> form) {
+		this.form = form;
+	}
+}

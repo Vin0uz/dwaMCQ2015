@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8" />
+<title>Hello Spring</title>
+<script type="text/javascript">
+	function addInput() {
+		document.getElementById("Cible0").innerHTML = "<input type='text'/>";
+		document.getElementById("Cible1").innerHTML = "<input type='text'/>";
+	}
+	
+	var curId=0;
+	function AddChamp(){
+	  document.getElementById("nextdiv" + curId).innerHTML = "<input type='text' />";
+	}
+	
+	function Alert2{
+		alert();
+	}
+</script>
+</head>
+
+
+
+<body>
+	<div th:each="questions : ${form}">
+		<p th:text="${questions.stringQuestion}" />
+		<div th:each="ans : ${questions.answers}">
+			<p th:text="${ans.answer} + ' , ' + ${ans.value}" />
+		</div>
+	</div>
+
+
+	<form method="post" th:action="@{/addquestion}">
+		Ajouter une Question a votre formulaire : <input type="text"
+			th:object="${q}" th:field="*{stringQuestion}" required="required" />
+		<br /> <input type="text" th:object="${a}" th:field="*{answer}"
+			required="required" /> <br /> <label>Cochez si cette
+			reponse est valide :</label> <input type="checkbox" th:field="*{a.value}" />
+		<br /> <input type="submit" value="Add Question" />
+	
+		<div id="Cible0"></div>
+	<div id="Cible1"></div>
+	<input type="button" value="2 Answers" onclick="addInput()" />
+	<input type="button" value="3 Answers" onclick="fAppearInputs(3)" />
+	<input type="button" value="4 Answers" onclick="Alert2()" />
+
+	<div id="Cible2"></div>
+	<div id="Cible3"></div>
+	<div id="nextdiv0"></div>
+	<input type="button" onclick="AddChamp();" value="Ajouter un champ" />
+	</form>
+
+</body>
+</html>

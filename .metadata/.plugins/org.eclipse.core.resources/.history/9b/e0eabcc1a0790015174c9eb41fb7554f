@@ -1,0 +1,30 @@
+package com.example;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+public class MyController {
+	@Inject
+	FormRepository form;
+	
+	@RequestMapping(value="/") 
+	String Mapping(Model m)
+	{
+		m.addAttribute("listQuestions", form.findAll());
+		m.addAttribute("newQuestion", new Question());
+		return ("index");
+	}
+	
+	@RequestMapping(value="/addForm",method=RequestMethod.POST)
+	String TotoVegetable(Question newQuest){
+		form.save(newQuest);
+		return ("redirect:/");
+	}
+	
+	
+}
