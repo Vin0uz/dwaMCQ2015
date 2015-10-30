@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.persistence.Entity;
@@ -8,20 +9,43 @@ import javax.persistence.Id;
 
 @Entity
 
-public class Form {
+public class Form implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ArrayList<Question> form;
+	String nameForm;
+	Long idCourse;
+	
+	
+	public Long getIdCourse() {
+		return idCourse;
+	}
+
+
+	public void setIdCourse(Long idCourse) {
+		this.idCourse = idCourse;
+	}
 	@Id @GeneratedValue
 	Long id;
 	
 	
 	Form(){
 		form= new ArrayList<Question>(); 
-		Question v1= new Question();
-		v1.setStringQuestion("Pile ou Face ?");
-		form.add(v1);
 	}
 	
 	
+	public String getNameForm() {
+		return nameForm;
+	}
+
+
+	public void setNameForm(String name) {
+		this.nameForm = name;
+	}
+
+
 	public Object findAll() {
 		return this.getForm() ;
 	}
