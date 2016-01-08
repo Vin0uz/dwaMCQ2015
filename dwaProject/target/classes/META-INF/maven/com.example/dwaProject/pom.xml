@@ -53,10 +53,9 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-		
 	</dependencies>
-
 	<build>
+		<defaultGoal>install</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -64,6 +63,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>

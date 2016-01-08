@@ -25,7 +25,8 @@
 		<option th:each="frm : ${formList}" th:value="${frm.id}"
 			th:text="${frm.nameForm}"></option>
 	</select>
-	 <input type="submit" value="Choose Form" />
+	 		 <button type="submit" name="action" value="choose">choose</button>
+     <button type="submit" name="action" value="delete">delete</button>
 </form>
 </body>
 </html>

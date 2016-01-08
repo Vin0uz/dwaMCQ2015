@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="utf-8" />
+<title>Hello Spring</title>
+</head>
+
+
+
+<body>
+
+	<form method="post" th:action="@{/addcourse}">
+		Creer un cours : <br />
+		<input type="text"	th:object="${course}" th:field="*{name}" required="required" />
+		<br /> <input type="submit" value="Add Course" />
+	</form>
+
+</body>
+</html>

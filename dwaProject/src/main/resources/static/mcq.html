@@ -1,0 +1,28 @@
+<div>
+{{text}}
+	<ul ng-if="!qcmShow">
+		<li ng-repeat="form in listForm">{{form.nameForm}}
+			<button ng-click="choosedForm(form.id)">{{form.nameForm}}
+				{{form.id}}</button>
+		</li>
+	</ul>
+	<div ng-if="qcmShow">
+		<ul ng-if="form.form[valueQuestion].stringQuestion != null ">
+			{{form.form[valueQuestion].stringQuestion}}
+			<button ng-if="form.form[valueQuestion].answers[0].answer != null "
+				ng-click="answer('0')">{{form.form[valueQuestion].answers[0].answer}}</button>
+			<button ng-if="form.form[valueQuestion].answers[1].answer != null "
+				ng-click="answer('1')">{{form.form[valueQuestion].answers[1].answer}}</button>
+			<button ng-if="form.form[valueQuestion].answers[2].answer != null "
+				ng-click="answer('2')">{{form.form[valueQuestion].answers[2].answer}}</button>
+			<button ng-if="form.form[valueQuestion].answers[3].answer != null "
+				ng-click="answer('3')">{{form.form[valueQuestion].answers[3].answer}}</button>
+		</ul>
+		<div ng-if="form.form[valueQuestion].stringQuestion == null">
+
+			<br /> You got a total of {{totalGoodAnswer}} over {{valueQuestion}}
+		</div>
+		<br />
+		<button onclick="location.href = '/'">HomeSweetHome</button>
+	</div>
+</div>

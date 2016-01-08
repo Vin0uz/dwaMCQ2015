@@ -1,0 +1,6 @@
+ChoixDuSujet.odt
+Sujet.odt
+.gitignore
+*.*~
+*/.metadata/*
+.metadata/*

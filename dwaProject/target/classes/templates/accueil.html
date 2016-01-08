@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="utf-8" />
+<title>Live MCQ - index </title>
+
+</head>
+
+
+<body>
+
+<div th:each = "c : ${courseList}"  th:text="${c.name} + ' qui a pour id : ' + ${c.id}">
+
+</div>
+<form th:action="@{/chooseCourse}" method="GET">
+	<select th:field="*{course.id}">
+		<option th:each="crs : ${courseList}" th:value="${crs.id}"
+			th:text="${crs.name}"></option>
+	</select>
+	 <button type="submit" name="action" value="choose">choose</button>
+     <button type="submit" name="action" value="delete">delete</button>
+</form>
+</body>
+</html>

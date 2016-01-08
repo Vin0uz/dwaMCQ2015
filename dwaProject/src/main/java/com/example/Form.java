@@ -1,23 +1,23 @@
 package com.example;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 
-public class Form implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	ArrayList<Question> form;
+public class Form{
+	@OneToMany
+	List<Question> form;
 	String nameForm;
 	Long idCourse;
-	
+	@Id @GeneratedValue
+	Long id;
 	
 	public Long getIdCourse() {
 		return idCourse;
@@ -27,8 +27,7 @@ public class Form implements Serializable{
 	public void setIdCourse(Long idCourse) {
 		this.idCourse = idCourse;
 	}
-	@Id @GeneratedValue
-	Long id;
+
 	
 	
 	Form(){
@@ -55,7 +54,7 @@ public class Form implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public ArrayList<Question> getForm() {
+	public List<Question> getForm() {
 		return form;
 	}
 	public void setForm(ArrayList<Question> form) {

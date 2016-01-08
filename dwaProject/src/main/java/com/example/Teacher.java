@@ -1,13 +1,17 @@
 package com.example;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 @Entity
 
 public class Teacher extends Person{
-	ArrayList<Course> courses;
+	@OneToMany
+	List<Course> courses;
 	@Id @GeneratedValue
 	Long id;
 
@@ -20,7 +24,7 @@ public class Teacher extends Person{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public ArrayList<Course> getCourses() {
+	public List<Course> getCourses() {
 		return courses;
 	}
 	public void setCourses(ArrayList<Course> courses) {

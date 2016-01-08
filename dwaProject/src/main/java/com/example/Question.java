@@ -2,10 +2,13 @@ package com.example;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -15,11 +18,12 @@ public class Question implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	String stringQuestion;
-	ArrayList<Answer> answers ;
+	@OneToMany(cascade = {CascadeType.ALL})
+	List<Answer> answers ;
 	int numberAnswer;
-	@Id @GeneratedValue
-	Long id;
 	Long idForm;
+	@Id @GeneratedValue
+	Long questionId;
 
 	
 	public int getNumberAnswer() {
@@ -29,7 +33,6 @@ public class Question implements Serializable{
 	public void setNumberAnswer(int numberAnswer) {
 		this.numberAnswer = numberAnswer;
 	}
-
 	public Long getIdForm() {
 		return idForm;
 	}
@@ -50,15 +53,15 @@ public class Question implements Serializable{
 		this.stringQuestion = question;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getQuestionId() {
+		return questionId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setQuestionId(Long id) {
+		this.questionId = id;
 	}
 
-	public ArrayList<Answer> getAnswers() {
+	public List<Answer> getAnswers() {
 		return answers;
 	}
 
