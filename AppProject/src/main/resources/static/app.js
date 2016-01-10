@@ -1,15 +1,6 @@
 var myApp = angular.module('myApp', ['ngRoute', 'ngResource', 'ngCookies']);
 
-myApp.controller('MyController', ['$scope', '$cookies', '$cookieStore', '$window',
-          function($scope, $cookies, $cookieStore, $window) {
-	$cookies.userName = 'Sandeep';
-	$scope.platformCookie = $cookies.userName;
-	$cookieStore.put('fruit', 'Apple'); 
-	$cookieStore.put('flower', 'Rose');
-	$scope.myFruit = $cookieStore.get('fruit'); 
-	}
-]);
-
+myApp.value('previewForm', { form: {}}) ;
 
 myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider   
@@ -21,11 +12,16 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
         templateUrl: 'home.html',
         controller: 'mainCtrl'        
     })
+    .when('/preview', {
+    	templateUrl: 'preview.html',
+    	controller: 'mainCtrl'
+    })
     .otherwise({ redirectTo: '/' });
 }]);
 
-myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, User, Form, Question, Answer, OnlineForm){
+myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, User, Form, Question, Answer, OnlineForm, previewForm){
 	$scope.inscriptionFlag="noooon";
+	$scope.previewForm = previewForm.form;
   $scope.users = User.query();
   $scope.actualUser = null;
   $idUser = $cookieStore.get('user');
@@ -47,7 +43,6 @@ myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, 
   $scope.valueQuestion = 0 ;
   
   if($idUser != null) {
-	  console.log("We are there");
 	  $scope.isConnected = true;
 	  $scope.actualUser = User.get({id:$idUser});
   }
@@ -56,26 +51,32 @@ myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, 
   $scope.delete = function(user) { user.$delete();} ;
   $scope.create = function(newUserName, newUserLastName,newLogin,newPassword) { 
 	var user = new User();
+	$scope.errorCreateUser = "";
     user.name = newUserName;
     user.lastname = newUserLastName;
     user.login = newLogin;
     user.password = newPassword;
     user.forms = [];
+    for(var count = 0; $scope.users[count] != null; count ++){
+    	if($scope.users[count].login == newLogin){
+        	$scope.errorCreateUser = $scope.errorCreateUser + "This Login is already used !";
+    	}
+    }
+    if($scope.errorCreateUser == ""){
     user.$save(function(user){
     	$scope.users.push(user);
     	$scope.registerFlag=false;
     	$scope.actualUser = user;
     	$window.location.reload();
     	}
-    );
     
+    );
+    }
   };
   $scope.connect = function(Login,Password){
 	  $scope.isConnected = false;
-	  console.log("HELLO");
 	  for(var count = 0; $scope.users[count] != null; count ++){
 		  if($scope.users[count].login == Login && $scope.users[count].password == Password){
-			  console.log("connected!" + $scope.users[count].id);
 			  $scope.actualUser = $scope.users[count];
 		      $cookieStore.put('user', $scope.users[count].id);
 			  $scope.isConnected = true ;
@@ -83,7 +84,6 @@ myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, 
 		  }
 	  }
 	  if($scope.isConnected == false){
-		  console.log("not connected");
 		  $scope.errorConnection="Impossible to connect, please check your login and password" ;
 	  }
   };
@@ -101,15 +101,17 @@ myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, 
 	  $scope.connectionFlag = !$scope.connectionFlag;
   };
   $scope.showForms = function(){
-	  $scope.showFormFlag = !$scope.showFormFlag;
+	  $scope.showFormFlag = true;
+	  $scope.createFormFlag = false;
   };
   $scope.createForm = function(){
-	  $scope.createFormFlag = !$scope.createFormFlag;
+	  $scope.createFormFlag = true;
+	  $scope.showFormFlag = false;
+	  $scope.choosedFormFlag = false;
   };
   
   $scope.addNewForm = function(nameNewForm){
 	  var user = $scope.actualUser ;
-	  console.log(user);
 	  var form = new Form();
 	  form.formName = nameNewForm ;
 	  form.questions = [];
@@ -129,25 +131,49 @@ myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, 
 	  var answer2 = new Answer();
 	  var answer3 = new Answer();
 	  var answer4 = new Answer();
-	  console.log(question);
+	  var totalChecked = 0 ;
+	  $scope.errorQuestion = "";
+	  totalChecked = checkboxModel.value1 + checkboxModel.value2 + checkboxModel.value3 + checkboxModel.value4 ;
+	  if (totalChecked != 1){
+		  $scope.errorQuestion = $scope.errorQuestion + "Please choose one good answer; ";
+	  }
 	  question.question = quest.question;
 	  question.answers = [] ; 
 	  answer1.answer = quest.answers[0];
-	  answer1.value = checkboxModel.value1;
+	  answer1.value = $scope.testBooleanValue(checkboxModel.value1) ;
 	  question.answers.push(answer1);
 	  answer2.answer = quest.answers[1];
-	  answer2.value = checkboxModel.value2;
+	  answer2.value = $scope.testBooleanValue(checkboxModel.value2) ;
 	  question.answers.push(answer2);
 	  if(quest.answers[2] != null){
 		  answer3.answer = quest.answers[2];
-		  answer3.value = checkboxModel.value3;	 
+		  answer3.value = $scope.testBooleanValue(checkboxModel.value3) ;	 
 		  question.answers.push(answer3);
 		  if(quest.answers[3] != null){
 			  answer4.answer = quest.answers[3];
-			  answer4.value = checkboxModel.value4;
+			  answer4.value = $scope.testBooleanValue(checkboxModel.value4) ;
 			  question.answers.push(answer4);
 		  }
 	  }
+	  if(answer1.answer == answer2.answer){
+		  $scope.errorQuestion = $scope.errorQuestion + "Answer 1 and 2 are equals ! ";
+	  }
+	  if(answer1.answer == answer3.answer){
+		  $scope.errorQuestion = $scope.errorQuestion + "Answer 1 and 3 are equals ! ";
+	  }
+	  if(answer1.answer == answer4.answer){
+		  $scope.errorQuestion = $scope.errorQuestion + "Answer 1 and 4 are equals ! ";
+	  }
+	  if(answer2.answer == answer3.answer){
+		  $scope.errorQuestion = $scope.errorQuestion + "Answer 2 and 3 are equals ! ";
+	  }
+	  if(answer2.answer == answer4.answer){
+		  $scope.errorQuestion = $scope.errorQuestion + "Answer 2 and 4 are equals ! ";
+	  }
+	  if((answer3.answer == answer4.answer) && answer3.answer != null){
+		  $scope.errorQuestion = $scope.errorQuestion + "Answer 3 and 4 are equals ! ";
+	  }
+	  if ($scope.errorQuestion == ""){
 	  for(var count = 0; user.forms[count] != null; count ++){
 		  if(user.forms[count].id == $scope.actualForm.id){
 			  user.forms[count].questions.push(question);
@@ -157,11 +183,21 @@ myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, 
 		  }
 	  }
 	  $window.location.reload();
+	  }
   }; 
   
+  $scope.testBooleanValue = function(entier){
+	  if(entier == 1){
+		  return true;
+	  }
+	  else{
+		  return false;
+	  }
+  };
   $scope.chooseForm = function(form){
 	  $scope.actualForm = form;
 	  $scope.choosedFormFlag = !$scope.choosedFormFlag; 
+	  $scope.showFormFlag = !$scope.showFormFlag;
   };
   
   $scope.launchForm = function(form){
@@ -182,15 +218,12 @@ myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, 
 	  onForm.formName = form.formName;
 	  onForm.questions = form.questions;
 	  onForm.id = form.id ;
-	  console.log("ChangeOnline launched");
 	  if(form.online){
-		  console.log("On passe Online a Offline");
 		  $id = onForm.id ;
 		  onForm.online =  false; 
 		  $scope.onlineForms.splice( $scope.onlineForms.indexOf(form), 1 );	
 		  }
 	  else {
-		  console.log("Offline -> Online");
 		  onForm.online =  true;
 		  $scope.onlineForms.push(onForm);
 	  }
@@ -202,7 +235,14 @@ myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, 
 			  User.update({ id:$id }, user);
 		  }
 	  }
-  }
+  };
+ 
+  $scope.accessPreview = function(form){
+	  	previewForm.form = form;
+		$window.alert("Opening the form : " + previewForm.form.formName);
+		$window.location.href = '/#/preview' ;
+	  
+}
 });
 
 

@@ -30,7 +30,6 @@ public class MyRestController {
 
 	@RequestMapping(value = "/onlineforms", method = RequestMethod.PUT)
 	public Form updateForm(@RequestBody Form form) {
-		System.out.println("OnlineForm with POST method");
 		onlineForms.save(form);
 		return form;
 	}
@@ -48,15 +47,12 @@ public class MyRestController {
 
 	@RequestMapping(value = "/onlineforms", method = RequestMethod.DELETE)
 	public ResponseEntity<Form> deleteOnlineForm(@RequestBody Form form) {
-		System.out.println("Fetching & Deleting Form with id " + form.id);
 		onlineForms.delete(form.id);
 		return new ResponseEntity<Form>(HttpStatus.NO_CONTENT);
 	}
 
 	@RequestMapping(value = "/onlineforms/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Form> deleteOnlineFormId(@PathVariable("id") long id) {
-		System.out.println("Fetching & Deleting User with id " + id);
-		System.out.println(onlineForms.findOne(id));
 		onlineForms.delete(id);
 		return new ResponseEntity<Form>(HttpStatus.NO_CONTENT);
 	}
@@ -68,21 +64,18 @@ public class MyRestController {
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
 	public User update(@PathVariable("id") long id, @RequestBody User user) {
-		System.out.println("je mexecute");
 		users.save(user);
 		return user;
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public Iterable<User> myGetUsers() {// return the form with id "FormId"
-		System.out.println("/users GET ALL");
 		return users.findAll();
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	public ResponseEntity<Void> createUser(@RequestBody User user) {
 
-		System.out.println("Creating new User " + user.getName());
 		users.save(user);
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
@@ -91,7 +84,6 @@ public class MyRestController {
 	@RequestMapping(value = "/users", method = RequestMethod.PUT)
 	public ResponseEntity<Void> updateUser(@RequestBody User user) {
 
-		System.out.println("Updating User " + user.getName());
 		users.delete(user.id);
 		users.save(user);
 
@@ -101,11 +93,9 @@ public class MyRestController {
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
-		System.out.println("Fetching & Deleting User with id " + id);
 
 		User user = users.findOne(id);
 		if (user == null) {
-			System.out.println("Unable to delete. User with id " + id + " not found");
 			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		}
 		users.delete(id);

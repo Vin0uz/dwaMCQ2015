@@ -1,0 +1,6 @@
+<button onclick="previewMcqFlag = false ; location.href = '/#/'" class="defaultButton">Home</button><div>
+	<ul ng-repeat="question in previewForm.questions "> {{question.question}}
+		<li ng-repeat="answer in question.answers"> {{answer.answer}}<span
+			ng-if="answer.value"> TRUE ANSWER</span></li>
+	</ul>
+</div>

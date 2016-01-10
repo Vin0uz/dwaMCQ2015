@@ -1,0 +1,13 @@
+.defaultButton {
+	background: #9fc5e8;
+	background: -webkit-linear-gradient(#9fc5e8, #073763);
+	background: linear-gradient(#9fc5e8, #073763);
+	border: 3px solid #9fc5e8;
+	border-radius: 5px;
+	color: #ff0;
+	display: inline-block;
+	padding: 8px 24px;
+	font: normal 400 30px/1 "Caviar", sans-serif;
+	text-align: center;
+	text-shadow: 2px 2px 0 #000;
+}
