@@ -1,0 +1,119 @@
+users : {{users}}
+<br/> <br/> <br/> <br/>
+onlineForms : {{onlineForms}}
+<div ng-if="!registerFlag && !isConnected">
+	<button ng-click="changeRF()">Register</button>
+</div>
+<div ng-if="registerFlag && !isConnected">
+	New user : <br />
+	<form name="myForm">
+		Name : <input type="text" name="name" ng-model="newUserName" required />
+		<span class="error" ng-show="myForm.name.$error.required"> Name
+			is required. </span><br> Last Name: <input type="text" name="lastname"
+			ng-model="newUserLastName" required /> <span class="error"
+			ng-show="myForm.lastname.$error.required"> Last name is
+			required. </span><br> Login : <input type="text" name="Login"
+			ng-model="newLogin" required /> <span class="error"
+			ng-show="myForm.Login.$error.required"> Login is required. </span><br>
+
+		Password : <input ng-model="newPassword" name="pass" type="password"
+			required /> <span class="error"
+			ng-show="myForm.pass.$error.required"> Password is required. </span><br>
+
+		<button
+			ng-click="create(newUserName,newUserLastName,newLogin,newPassword)">Create</button>
+
+	</form>
+</div>
+
+<div ng-if="!connectionFlag && !isConnected">
+	<button ng-click="changeCF()">Connect</button>
+</div>
+<div ng-if="connectionFlag && !isConnected">
+	<form name="formConnection">
+		<input type="text" name="login" ng-model="Login" required /> <span
+			class="error" ng-show="formConnection.login.$error.required">
+			Login is required. </span><br> <input type="password" name="password"
+			ng-model="Password" required /> <span class="error"
+			ng-show="formConnection.password.$error.required"> Password is
+			required. </span><br>
+
+		<button ng-click="connect(Login,Password)">Connect</button>
+		{{errorConnection}}
+	</form>
+</div>
+<div ng-if="isConnected">
+	<button ng-click="disconnect()">Disconnect</button>
+	<button onclick="location.href = '/#/mcq'"> Acceder aux QCM </button>	
+</div>
+<div ng-if="isConnected">
+	<button ng-click="showForms()">My Forms</button>
+	<button ng-click="createForm()">Create Form</button>
+	<div ng-if="showFormFlag">
+		<ul>
+			<li ng-repeat="form in actualUser.forms">{{form}}</li>
+		</ul>
+	</div>
+	<div ng-if="createFormFlag">
+		<form>
+			Ajouter un formulaire : 
+			<input type="text" required="required" ng-model="nameNewForm" /> <br/>
+			
+			<button type="submit" ng-click="addNewForm(nameNewForm)">choose</button>
+		</form>
+		
+	</div>
+	<div ng-if="!choosedFormFlag">
+		Edit :
+		<button ng-repeat="form in actualUser.forms" ng-click="chooseForm(form)"> {{form.formName}} </button>
+	</div>
+	<div ng-if="choosedFormFlag">
+		<form>
+			Add Question : 
+			<input type="text" ng-model="quest.question" /> <br/>
+			Answer 1 : 
+			<input type="text" ng-model="quest.answers[0]" required="required"/>
+			<input type="checkbox" ng-model="checkboxModel.value1" /> <br/>
+			Answer 2 : 
+			<input type="text" ng-model="quest.answers[1]" required="required"/>
+			<input type="checkbox" ng-model="checkboxModel.value2" /> <br/>	
+			Answer 3 : 
+			<input type="text" ng-model="quest.answers[2]" />
+			<input type="checkbox" ng-model="checkboxModel.value3" /> <br/>	
+			Answer 4 : 
+			<input type="text" ng-model="quest.answers[3]" />
+			<input type="checkbox" ng-model="checkboxModel.value4"/> <br/>	
+			<button type="submit" ng-click="addQuestion(quest,checkboxModel)" /> Add </button>
+		</form>
+		<button ng-click="chooseForm(form)"> Stop Editing</button>
+	</div>
+	
+	<br/><br/><br/>
+	<br/><br/><br/>
+	
+	<ul>
+	Set Online : 
+		<li ng-repeat="form in actualUser.forms">
+			<button ng-click="changeOnlineForm(form)">{{form.formName}} {{form.online}} </button>
+		</li>
+	</ul>
+	<div ng-if="mcqShowFlag">
+		<ul ng-if="actualForm.questions[valueQuestion].question != null ">
+			{{actualForm.questions[valueQuestion].question }}
+			<button ng-if="actualForm.questions[valueQuestion].answers[0].answer != null "
+				ng-click="answering(actualForm.questions[valueQuestion].answers[0].value)">{{actualForm.questions[valueQuestion].answers[0].answer}}</button>
+			<button ng-if="actualForm.questions[valueQuestion].answers[1].answer != null "
+				ng-click="answering(actualForm.questions[valueQuestion].answers[1].value)">{{actualForm.questions[valueQuestion].answers[1].answer}}</button>
+			<button ng-if="actualForm.questions[valueQuestion].answers[2].answer != null "
+				ng-click="answering(actualForm.questions[valueQuestion].answers[2].value)">{{actualForm.questions[valueQuestion].answers[2].answer}}</button>
+			<button ng-if="actualForm.questions[valueQuestion].answers[3].answer != null "
+				ng-click="answering(actualForm.questions[valueQuestion].answers[3].value)">{{actualForm.questions[valueQuestion].answers[3].answer}}</button>
+		</ul>
+		<div ng-if="actualForm.questions[valueQuestion].question == null">
+
+			<br /> You got a total of {{totalGoodAnswer}} over {{valueQuestion}}
+		</div>
+		<br />
+		<button onclick="location.href = '/'">HomeSweetHome</button>
+	</div>
+</div>

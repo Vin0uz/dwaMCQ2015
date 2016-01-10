@@ -1,0 +1,26 @@
+<div>
+<ul ng-if="!mcqShowFlag">
+		<li ng-repeat="form in onlineForms">
+			<button ng-click="launchForm(form)">{{form.formName}}</button>
+		</li>
+	</ul>
+	
+	
+<div ng-if="mcqShowFlag">
+		<ul ng-if="actualForm.questions[valueQuestion].question != null ">
+			{{actualForm.questions[valueQuestion].question }}
+			<button ng-if="actualForm.questions[valueQuestion].answers[0].answer != null "
+				ng-click="answering(actualForm.questions[valueQuestion].answers[0].value)">{{actualForm.questions[valueQuestion].answers[0].answer}}</button>
+			<button ng-if="actualForm.questions[valueQuestion].answers[1].answer != null "
+				ng-click="answering(actualForm.questions[valueQuestion].answers[1].value)">{{actualForm.questions[valueQuestion].answers[1].answer}}</button>
+			<button ng-if="actualForm.questions[valueQuestion].answers[2].answer != null "
+				ng-click="answering(actualForm.questions[valueQuestion].answers[2].value)">{{actualForm.questions[valueQuestion].answers[2].answer}}</button>
+			<button ng-if="actualForm.questions[valueQuestion].answers[3].answer != null "
+				ng-click="answering(actualForm.questions[valueQuestion].answers[3].value)">{{actualForm.questions[valueQuestion].answers[3].answer}}</button>
+		</ul>
+		<div ng-if="actualForm.questions[valueQuestion].question == null">
+
+			<br /> You got a total of {{totalGoodAnswer}} over {{valueQuestion}}
+			<button onclick="location.href = '/#/'"> Home </button>
+		</div>
+</div>
