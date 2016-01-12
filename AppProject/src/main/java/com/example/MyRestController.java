@@ -28,6 +28,12 @@ public class MyRestController {
 		return onlineForms.findOne(id);
 	}
 
+	@RequestMapping(value = "/onlineforms/{id}", method = RequestMethod.POST)
+	public Form update(@PathVariable("id") long id, @RequestBody Form form) {
+		onlineForms.save(form);
+		return form;
+	}
+
 	@RequestMapping(value = "/onlineforms", method = RequestMethod.PUT)
 	public Form updateForm(@RequestBody Form form) {
 		onlineForms.save(form);
@@ -37,8 +43,8 @@ public class MyRestController {
 	@RequestMapping(value = "/onlineforms", method = RequestMethod.GET)
 	public Iterable<Form> myGetOnlineForms() {
 		ArrayList<Form> result = new ArrayList<Form>();
-		for(Form f : onlineForms.findAll()){
-			if (f.isOnline()){
+		for (Form f : onlineForms.findAll()) {
+			if (f.isOnline()) {
 				result.add(f);
 			}
 		}
@@ -102,6 +108,16 @@ public class MyRestController {
 		return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 	}
 
+	@RequestMapping(value = "/login/{id}", method = RequestMethod.GET)
+	public Login myGetLogin(@PathVariable("id") Long id) {
+		return (new Login());
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public Iterable<Login> myGetLogins() {//
+		return (new ArrayList<Login>());
+	}
+
 	/* FORMS */
 	@RequestMapping(value = "/forms/{id}", method = RequestMethod.GET)
 	public Form myGetForm(@PathVariable("id") Long id) {
@@ -109,7 +125,7 @@ public class MyRestController {
 	}
 
 	@RequestMapping(value = "/forms", method = RequestMethod.GET)
-	public Iterable<Form> myGetForms() {// return the form with id "FormId"
+	public Iterable<Form> myGetForms() {
 		return (new ArrayList<Form>());
 	}
 

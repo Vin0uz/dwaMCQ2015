@@ -19,7 +19,8 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     .otherwise({ redirectTo: '/' });
 }]);
 
-myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, User, Form, Question, Answer, OnlineForm, previewForm){
+myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, User, Login, Form, Question, Answer, OnlineForm, previewForm 
+){
 	$scope.inscriptionFlag="noooon";
 	$scope.previewForm = previewForm.form;
   $scope.users = User.query();
@@ -53,7 +54,7 @@ myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, 
 	var user = new User();
 	$scope.errorCreateUser = "";
     user.name = newUserName;
-    user.lastname = newUserLastName;
+    user.lastName = newUserLastName;
     user.login = newLogin;
     user.password = newPassword;
     user.forms = [];
@@ -209,7 +210,11 @@ myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, 
 	  if(val){
 		  $scope.totalGoodAnswer ++ ;
 	  }
-	  $scope.valueQuestion ++ ;		  
+	  $scope.valueQuestion ++ ;
+	  var count = $scope.valueQuestion ;
+	  if($scope.actualForm.questions[count] == null){
+		  $scope.setAlreadyDone();
+	  }
   };
   
   $scope.changeOnlineForm = function(form) {
@@ -241,8 +246,31 @@ myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, 
 	  	previewForm.form = form;
 		$window.alert("Opening the form : " + previewForm.form.formName);
 		$window.location.href = '/#/preview' ;
-	  
-}
+};
+
+$scope.checkAlreadyDone = function(){
+	for(var count = 0; $scope.actualForm.loginsDoneMCQ[count] != null; count ++){
+		  if( $scope.actualForm.loginsDoneMCQ[count].login == $scope.actualUser.login){
+			  return true;
+		  }
+	  }
+	return false;
+};
+
+$scope.setAlreadyDone = function(){
+	var frm = new OnlineForm();
+	var login = new Login();
+	login.login = $scope.actualUser.login ; 
+	login.numberQuestions = $scope.valueQuestion;
+	login.correctAnswers = $scope.totalGoodAnswer;
+	login.name = $scope.actualUser.name ;
+	login.lastName = $scope.actualUser.lastName;
+	frm = $scope.actualForm ;
+	$scope.actualForm.loginsDoneMCQ.push(login);
+	frm.$save();
+	return true;
+};
+
 });
 
 
@@ -250,6 +278,16 @@ myApp.controller('mainCtrl', function ($scope, $window, $cookies, $cookieStore, 
 myApp.factory('Form', ['$resource',
                        function($resource){
                          return $resource('/forms/:id', {id:'@id'},
+                           {
+                             'update': {method: 'POST'}
+                           }
+	);
+}
+]);
+
+myApp.factory('Login', ['$resource',
+                       function($resource){
+                         return $resource('/login/:id', {id:'@id'},
                            {
                              'update': {method: 'POST'}
                            }

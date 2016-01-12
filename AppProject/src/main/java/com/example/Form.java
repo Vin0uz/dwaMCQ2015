@@ -9,20 +9,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-
 @Entity
 public class Form {
 	String formName;
-	@OneToMany(cascade = {CascadeType.ALL})
+	@OneToMany(cascade = { CascadeType.ALL })
 	List<Question> questions;
+	@OneToMany(cascade = { CascadeType.ALL })
+	List<Login> loginsDoneMCQ;
+
 	@Id
 	@GeneratedValue
 	Long id;
 	boolean online;
-	
+
 	Form() {
 		questions = new ArrayList<Question>();
+		loginsDoneMCQ = new ArrayList<Login>();
 		online = false;
+	}
+
+	public List<Login> getLoginsDoneMCQ() {
+		return loginsDoneMCQ;
+	}
+
+	public void setLoginsDoneMCQ(List<Login> loginsDoneMCQ) {
+		this.loginsDoneMCQ = loginsDoneMCQ;
 	}
 
 	public boolean isOnline() {

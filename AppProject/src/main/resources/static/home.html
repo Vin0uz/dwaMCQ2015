@@ -29,8 +29,8 @@
 			is too short, min 6 chars.</span><br> Password : <input
 			ng-model="newPassword" name="pass" type="password" required
 			ng-minlength="6" /> <span class="error"
-			ng-show="myForm.pass.$error.required"> Password is required. </span><br>
-		<span class="error" ng-show="myForm.pass.$error.minlength">
+			ng-show="myForm.pass.$error.required"> Password is required.
+		</span> <span class="error" ng-show="myForm.pass.$error.minlength">
 			Password is too short, min 6 chars.</span><br>
 
 		<button ng-if="myForm.$valid"
@@ -66,27 +66,27 @@
 
 	</div>
 	<div ng-if="showFormFlag">
-		<ul>Edit :
-		<li ng-repeat="form in actualUser.forms"> <button 
-			ng-click="chooseForm(form)">{{form.formName}}</button>
+		<ul>
+			Edit :
+			<li ng-repeat="form in actualUser.forms">
+				<button ng-click="chooseForm(form)">{{form.formName}}</button>
 			</li>
-</ul>
-	<ul>
-		Set Online :
-		<li ng-repeat="form in actualUser.forms">
-			<button ng-click="changeOnlineForm(form)">{{form.formName}}
-				{{form.online}}</button>
-		</li>
-	</ul>
-	<ul>
-	Preview : 
-		<li ng-repeat="form in actualUser.forms">
-			<button ng-click="accessPreview(form)">{{form.formName}}
-				{{form.online}}</button>
-		</li>
-	</ul>
+		</ul>
+		<ul>
+			Set Online :
+			<li ng-repeat="form in actualUser.forms">
+				<button ng-click="changeOnlineForm(form)">{{form.formName}}
+					{{form.online}}</button>
+			</li>
+		</ul>
+		<ul>
+			Preview :
+			<li ng-repeat="form in actualUser.forms">
+				<button ng-click="accessPreview(form)">{{form.formName}}</button>
+			</li>
+		</ul>
 	</div>
-		<div ng-if="choosedFormFlag">
+	<div ng-if="choosedFormFlag">
 		<form>
 			Add Question : <input type="text" ng-model="quest.question" /> <br />
 			Answer 1 : <input type="text" ng-model="quest.answers[0]"
@@ -108,5 +108,5 @@
 		{{errorQuestion}}
 		<button ng-click="chooseForm(form)">Stop Editing</button>
 	</div>
-	
+
 </div>

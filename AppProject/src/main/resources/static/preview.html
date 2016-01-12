@@ -1,6 +1,15 @@
-<button onclick="previewMcqFlag = false ; location.href = '/#/'" class="defaultButton">Home</button><div>
-	<ul ng-repeat="question in previewForm.questions "> {{question.question}}
-		<li ng-repeat="answer in question.answers"> {{answer.answer}}<span
-			ng-if="answer.value"> TRUE ANSWER</span></li>
+<button onclick="previewMcqFlag = false ; location.href = '/#/'"
+	class="defaultButton">Home</button>
+<div class="resultDiv">
+	<ul ng-repeat="userStat in previewForm.loginsDoneMCQ">
+		<li>{{ userStat.name }} {{userStat.lastName}} : Grade :
+			{{userStat.correctAnswers}} / {{userStat.numberQuestions}}</li>
+	</ul>
+</div>
+<div>
+	<ul ng-repeat="question in previewForm.questions " class="question">
+		- {{question.question}}
+		<li ng-repeat="answer in question.answers" class="answers">{{answer.answer}}<span
+			ng-if="answer.value" class="correctAnswer"> √ </span></li>
 	</ul>
 </div>

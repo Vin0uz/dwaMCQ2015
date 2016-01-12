@@ -1,28 +1,42 @@
 <div class="nav">
-<button onclick="location.href = '/#/'" class="defaultButton"> Home </button></div>
+	<button onclick="location.href = '/#/'" class="defaultButton">
+		Home</button>
+</div>
 <div>
-<ul ng-if="!mcqShowFlag">
+	<ul ng-if="!mcqShowFlag">
 		<li ng-repeat="form in onlineForms">
 			<button ng-click="launchForm(form)">{{form.formName}}</button>
 		</li>
 	</ul>
-	
-	
-<div ng-if="mcqShowFlag">
-		<ul ng-if="actualForm.questions[valueQuestion].question != null ">
+
+
+	<div ng-if="mcqShowFlag">
+		<ul
+			ng-if="actualForm.questions[valueQuestion].question != null && !checkAlreadyDone() ">
 			{{actualForm.questions[valueQuestion].question }}
-			<button ng-if="actualForm.questions[valueQuestion].answers[0].answer != null "
+			<button
+				ng-if="actualForm.questions[valueQuestion].answers[0].answer != null "
 				ng-click="answering(actualForm.questions[valueQuestion].answers[0].value)">{{actualForm.questions[valueQuestion].answers[0].answer}}</button>
-			<button ng-if="actualForm.questions[valueQuestion].answers[1].answer != null "
+			<button
+				ng-if="actualForm.questions[valueQuestion].answers[1].answer != null "
 				ng-click="answering(actualForm.questions[valueQuestion].answers[1].value)">{{actualForm.questions[valueQuestion].answers[1].answer}}</button>
-			<button ng-if="actualForm.questions[valueQuestion].answers[2].answer != null "
+			<button
+				ng-if="actualForm.questions[valueQuestion].answers[2].answer != null "
 				ng-click="answering(actualForm.questions[valueQuestion].answers[2].value)">{{actualForm.questions[valueQuestion].answers[2].answer}}</button>
-			<button ng-if="actualForm.questions[valueQuestion].answers[3].answer != null "
+			<button
+				ng-if="actualForm.questions[valueQuestion].answers[3].answer != null "
 				ng-click="answering(actualForm.questions[valueQuestion].answers[3].value)">{{actualForm.questions[valueQuestion].answers[3].answer}}</button>
 		</ul>
-		<div ng-if="actualForm.questions[valueQuestion].question == null">
+		<div
+			ng-if="actualForm.questions[valueQuestion].question == null && !checkAlreadyDone()">
 
 			<br /> You got a total of {{totalGoodAnswer}} over {{valueQuestion}}
-			<button onclick="location.href = '/#/'"> Home </button>
+			<button onclick="location.href = '/#/'">Home</button>
 		</div>
-</div>
+
+		<div ng-if="checkAlreadyDone()">
+			You have done this MCQ <br />
+			<button onclick="location.href = '/#/'">Home</button>
+
+		</div>
+	</div>

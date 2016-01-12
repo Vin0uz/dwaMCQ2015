@@ -11,3 +11,39 @@
 	text-align: center;
 	text-shadow: 2px 2px 0 #000;
 }
+
+.resultDiv {
+	border: 1px solid black;
+	width: 50%;
+	margin-top: 10px;
+}
+
+.resultDiv li {
+	list-style-type: Katakana;
+}
+
+.error {
+	color: red;
+	font-size: 10px;
+	font-family: "Helvetica Neue", Hekvetica, Arial, sans-serif;
+}
+
+.question {
+	border: 1px dotted blue;
+	font-size: 18px;
+	width: 50%;
+	padding-left: 0px;
+}
+
+.answers {
+	padding-left: 5px;
+	margin-left: 40px;
+	font-size: 14px;
+	list-style-type: georgian;
+}
+
+.correctAnswer {
+	color: green;
+	font-size: 18px;
+	font-style: bold;
+}
